@@ -1,6 +1,8 @@
 # IpCalc
 Command line application for search subnet
 
+The maximum number of iterations in this algorithm is 32
+
 # How to use it?
 This application runs by running the file main.py
 
