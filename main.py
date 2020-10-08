@@ -10,8 +10,11 @@ args = parser.parse_args()
 def main(args):
     if args.version == 4:
         calculator = CalcSubnetIpv4()
-        result = calculator.run(args.file)
-        print(result[1]) if result[0] else print(calculator.validator.get_error_string(result[1]))
+        # При успешном прохождении валидаций в переменной work_result будет объект искомой подсети
+        # В противном случае там будет лежать словарь с кодами ошибок, который необходимо распарсить
+        # и показать пользователю сообщения с ошибками
+        validate_result, work_result = calculator.run(args.file)
+        print(work_result) if validate_result else print(calculator.validator.get_error_string(work_result))
 
     else:
         print('В настоящий момент поддерживатся только ip версии 4')
