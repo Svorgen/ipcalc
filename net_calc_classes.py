@@ -29,12 +29,9 @@ class CalcSubnetIpv4:
         ips_list = [IPv4Address(ip) for ip in ips_list]
         min_ip = min(ips_list)
         max_ip = max(ips_list)
-        diapason = int(max_ip) - int(min_ip)
         ip_range = 0
-        while 2 ** ip_range < diapason:
+        net = IPv4Network(f'{min_ip}/32', strict=False)
+        while max_ip not in net:
             ip_range += 1
-        net = IPv4Network(str(min_ip) + '/' + str(32 - ip_range), strict=False)
-        if max_ip not in net:
-            ip_range += 1
-            net = IPv4Network(str(min_ip) + '/' + str(32 - ip_range), strict=False)
+            net = IPv4Network(f'{min_ip}/{32 - ip_range}', strict=False)
         return net
